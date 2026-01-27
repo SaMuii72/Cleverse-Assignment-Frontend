@@ -80,9 +80,6 @@ export default function Home() {
           <code className={styles.code}>app/(home)/page.tsx</code>
         </p>
         <div className={styles.card} style={{ margin: 16, width: "100%" }}>
-          
-          <h2>Flight Logs</h2>
-          <LogCard style={{ width: "100%" }} data={logs}></LogCard>
           <div className="flex items-center justify-between">
               <h2>Flight Logs</h2>
 
@@ -98,12 +95,12 @@ export default function Home() {
                   onClick={() => {
                     Object.entries(avgRoutes).forEach(([route, { sum, count }]) => {
                       const avg = sum / count;
-
+                      
                       console.log(
                         `${route} avg time = ${avg.toFixed(2)} seconds`
                       );
                     });
-
+                    
                     setPrinted(true);
                   }}
                 >
@@ -111,6 +108,7 @@ export default function Home() {
                 </button>
               </div>
             </div>
+            <LogCard style={{ width: "100%" }} data={logs}></LogCard>
         </div>
         <div className={styles.card} style={{ margin: 16, width: "100%" }}>
           <h2>Departure Logging</h2>
