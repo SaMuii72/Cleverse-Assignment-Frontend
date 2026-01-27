@@ -7,18 +7,22 @@ import { FlightLogService } from "../(flightlog)/fightlog.service";
 import LogCard from "../(flightlog)/LogCard";
 import LogForm from "../(flightlog)/LogForm";
 // import BoardingPassCard from "../(boardingpass)/BoardingPassCard";
-
+type FlightLog = {
+  passengerName: string;
+  airport: string;
+  timestamp: number;
+  type: "departure" | "arrival";
+};
 const flightLogService = new FlightLogService();
 
 export default function Home() {
-  const [logs, setLogs] = useState([]);
+  const [logs, setLogs] = useState<FlightLog[]>([]);
 
   const handleAddLog = useCallback(
-    (log) => {
-      logs.push(log);
-      setLogs(logs);
+    (log:FlightLog) => {
+      setLogs((prevLogs) => [...prevLogs, log]);
     },
-    [logs]
+    []
   );
 
   useEffect(() => {
