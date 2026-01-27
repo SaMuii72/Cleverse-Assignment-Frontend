@@ -1,4 +1,15 @@
-import { useState, useCallback } from "react";
+import { useState, useCallback, ChangeEvent } from "react";
+
+type LogType = "departure" | "arrival";
+
+type LogFormProps = {
+  onSubmit: (log: {
+    passengerName: string;
+    airport: string;
+    timestamp: number;
+    type: LogType;
+  }) => void;
+};
 
 const emptyForm = {
   passengerName: "",
@@ -6,20 +17,30 @@ const emptyForm = {
   timestamp: "",
 };
 
-function LogForm(props) {
-  const { type, onSubmit } = props;
-
+function LogForm({ onSubmit }: LogFormProps) {
   const [formData, setFormData] = useState(emptyForm);
+  const [type, setType] = useState<LogType>("departure");
+
+  const isFormValid =
+    formData.passengerName.trim() &&
+    formData.airport.trim() &&
+    formData.timestamp;
 
   const handleSubmit = useCallback(() => {
-    onSubmit({ ...formData, type });
-    setFormData(emptyForm);
+    onSubmit({
+      passengerName: formData.passengerName,
+      airport: formData.airport,
+      timestamp: Number(formData.timestamp),
+      type,
+    });    setFormData(emptyForm);
   }, [formData, type, onSubmit]);
 
-  const handleChange = useCallback(({ target }) => {
+  const handleChange = useCallback(
+    (e: ChangeEvent<HTMLInputElement>) => {
+      const { id,value } = e.target;
     setFormData((prev) => ({
       ...prev,
-      [target.id]: target.value,
+      [id]: value,
     }));
   }, []);
 
