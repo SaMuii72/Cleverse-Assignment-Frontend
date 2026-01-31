@@ -1,14 +1,22 @@
 import { useState, useEffect } from "react";
 import LogItem from "./LogItem";
 
-function LogCard(props) {
-  const { data } = props;
-  const [logs, setLogs] = useState(data);
+type FlightLog = {
+  passengerName: string;
+  airport: string;
+  timestamp: number;
+  type: "departure" | "arrival";
+};
 
-  useEffect(() => {
-    setLogs(data);
-  }, [data]);
+type LogCardProps = {
+  data: FlightLog[];
+};
 
+function LogCard({data}: LogCardProps) {
+  if (!data || data.length === 0) {
+    return <div>No flight logs</div>;
+  }
+ 
   return (
     <div
       style={{
@@ -30,9 +38,11 @@ function LogCard(props) {
         <span style={{ flex: 1 }}>Timestamp</span>
         <span style={{ flex: 1 }}>Type</span>
       </div>
-      {logs.map((item) => (
-        <LogItem key={`${item.passengerName}`} item={item}></LogItem>
-      ))}
+      {data.map((item,index) => (
+          <LogItem
+          key={`${item.passengerName}-${index}`}
+          item={item}
+        />      ))}
     </div>
   );
 }
