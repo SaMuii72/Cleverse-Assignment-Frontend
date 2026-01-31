@@ -108,14 +108,10 @@ export default function Home() {
                 </button>
               </div>
             </div>
-            <LogCard style={{ width: "100%" }} data={logs}></LogCard>
+            <LogCard data={logs}></LogCard>
         </div>
         <div className={styles.card} style={{ margin: 16, width: "100%" }}>
-          <h2>Departure Logging</h2>
-          <LogForm onSubmit={handleAddLog}/>
-        </div>
-        <div className={styles.card} style={{ margin: 16, width: "100%" }}>
-          <h2>Arrival Logging</h2>
+          <h2>Flight Logging</h2>
           <LogForm onSubmit={handleAddLog}/>
         </div>
         {/* Render boarding pass here */}
